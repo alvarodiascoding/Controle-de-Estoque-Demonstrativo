@@ -260,6 +260,7 @@ def layout_resultados():
                 readonly=True,
                 key="-ALIQUOTA-",
                 size=(9,1),
+                enable_events=True
             )
         ],
 
@@ -586,14 +587,14 @@ def executar():
 
                 operacao = valores["-OPERACAO-"]
 
-                if operacao == "+":
+                if operacao == " +":
 
                     EstoqueController1.somar_produto_estoque(
                         id_produto,
                         quantidade
                     )
 
-                else:
+                elif operacao == " -":
 
                     EstoqueController1.diminuir_produto_estoque(
                         id_produto,
