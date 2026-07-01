@@ -269,16 +269,18 @@ class ResultadoController(SistemaBase):
             simples_nacional
         )
 
+        custo_fixo_total = CustofixoDao1.total_custos()
+
         # Lucro bruto (sem impostos)
         lucro_bruto = (
-            receita_bruta -
+            receita_liquida -
             custo_produtos
         )
 
         # Lucro líquido (com impostos)
         lucro_liquido = (
-            receita_liquida -
-            custo_produtos
+            lucro_bruto -
+            custo_fixo_total
         )
 
         return {
@@ -293,8 +295,9 @@ class ResultadoController(SistemaBase):
 
             "receita_liquida": receita_liquida,
 
-            "lucro_liquido": lucro_liquido
+            "lucro_liquido": lucro_liquido,
 
+            "custo_fixo_total": custo_fixo_total,
         }
 
 # Instâncias dos Controllers

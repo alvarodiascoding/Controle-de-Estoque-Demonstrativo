@@ -74,7 +74,7 @@ class ObjectsDao:
                 .filter_by(nomecf=nomecf1)
                 .first()
             )
-
+        
     def listar(self):
 
         if self.tabela == produtos:
@@ -195,6 +195,16 @@ class CustofixoDao(ObjectsDao):
         )
 
         self.adicionar(novo_custo)
+
+    def total_custos(self):
+
+        custos = (
+            self.session
+            .query(custofixo)
+            .all()
+        )
+
+        return sum(c.valorcf for c in custos)
 
 class EstoqueDao(ObjectsDao):
 

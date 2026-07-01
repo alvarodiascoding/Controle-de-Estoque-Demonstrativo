@@ -154,6 +154,21 @@ def layout_resultados():
             sg.Text(
                 "Resultados",
                 font=("Arial", 14, "bold")
+            ),
+
+            sg.Push(),
+
+            sg.Text(
+                "Aliquota:",
+            ),
+
+            sg.Combo(
+                values=list(aliquotas.keys()),
+                default_value=" Comércio",
+                readonly=True,
+                key="-ALIQUOTA-",
+                size=(10,1),
+                enable_events=True
             )
         ],
 
@@ -196,14 +211,22 @@ def layout_resultados():
 
         [
             sg.Text(
-                "Sem impostos:",
+                "Impostos:",
                 font=("Arial", 12, "bold")
+            ),
+
+            sg.Push(),
+
+            sg.Text(
+                "Simples Nacional"
             ),
         ],
 
+        [sg.HorizontalSeparator()],
+
         [
             sg.Text(
-                "Faturamento:"
+                "Faturamento (+)"
             ),
 
             sg.Push(),
@@ -216,7 +239,35 @@ def layout_resultados():
 
         [
             sg.Text(
-                "CMV/CPV:"
+                "Simples Nacional 2026 (-)"
+            ),
+
+            sg.Push(),
+
+            sg.Text(
+                "R$ 0,00",
+                key="-SIMPLES-NACIONAL-",
+            ),
+        ],
+
+        [
+            sg.Text(
+                "Receita Líquida ="
+            ),
+
+            sg.Push(),
+
+            sg.Text(
+                "R$ 0,00",
+                key="-RECEITA_LIQUIDA-",
+            ),
+        ],
+
+        [sg.HorizontalSeparator()],
+
+        [
+            sg.Text(
+                "CMV/CPV (-)"
             ),
 
             sg.Push(),
@@ -229,7 +280,7 @@ def layout_resultados():
 
         [
             sg.Text(
-                "Lucro Bruto:"
+                "Lucro Bruto ="
             ),
 
             sg.Push(),
@@ -244,42 +295,21 @@ def layout_resultados():
 
         [
             sg.Text(
-                "Com impostos:",
-                font=("Arial", 12, "bold")
-            ),
-
-            sg.Push(),
-
-            sg.Text(
-                "Aliquota:",
-            ),
-
-            sg.Combo(
-                values=list(aliquotas.keys()),
-                default_value=" Comércio",
-                readonly=True,
-                key="-ALIQUOTA-",
-                size=(9,1),
-                enable_events=True
-            )
-        ],
-
-        [
-            sg.Text(
-                "Simples Nacional 2026:"
+                "Custos Fixos (-)"
             ),
 
             sg.Push(),
 
             sg.Text(
                 "R$ 0,00",
-                key="-SIMPLES-NACIONAL-",
-            ),
+                key="-CUSTO_FIXO_TOTAL-"
+            )
         ],
+
 
         [
             sg.Text(
-                "Lucro Líquido:"
+                "Lucro Líquido ="
             ),
 
             sg.Push(),
@@ -715,6 +745,14 @@ def executar():
                     f'R$ {resultado["receita_bruta"]:.2f}'.replace(".", ",")
                 )
 
+                janela_rs["-RECEITA_LIQUIDA-"].update(
+                    f'R$ {resultado["receita_liquida"]:.2f}'.replace(".", ",")
+                )
+
+                janela_rs["-CUSTO_FIXO_TOTAL-"].update(
+                    f"R$ {resultado['custo_fixo_total']:.2f}".replace(".", ",")
+                )
+
                 janela_rs["-CPV-"].update(
                     f'R$ {resultado["custo_produtos"]:.2f}'.replace(".", ",")
                 )
@@ -767,6 +805,10 @@ def executar():
                             f'R$ {resultado["receita_bruta"]:.2f}'.replace(".", ",")
                         )
 
+                        janela_rs["-RECEITA_LIQUIDA-"].update(
+                            f'R$ {resultado["receita_liquida"]:.2f}'.replace(".", ",")
+                        )
+
                         janela_rs["-CPV-"].update(
                             f'R$ {resultado["custo_produtos"]:.2f}'.replace(".", ",")
                         )
@@ -798,6 +840,10 @@ def executar():
 
                         janela_rs["-RECEITA_BRUTA-"].update(
                             f'R$ {resultado["receita_bruta"]:.2f}'.replace(".", ",")
+                        )
+
+                        janela_rs["-RECEITA_LIQUIDA-"].update(
+                            f'R$ {resultado["receita_liquida"]:.2f}'.replace(".", ",")
                         )
 
                         janela_rs["-CPV-"].update(

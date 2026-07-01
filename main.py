@@ -3,9 +3,9 @@ from login import login
 
 
 def main():
-    # executar()
-    if login() == "liberado":
-        executar()
+    executar()
+    #if login() == "liberado":
+    #    executar()
 
 if __name__ == "__main__":
     main()
